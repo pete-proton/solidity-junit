@@ -1,0 +1,41 @@
+plugins {
+    id 'java'
+    id 'org.web3j' version '4.9.4'
+}
+
+apply plugin: 'org.web3j'
+
+group 'com.xyz-incrementer-test'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+    maven { url "https://hyperledger.jfrog.io/artifactory/besu-maven/" }
+    maven { url "https://artifacts.consensys.net/public/maven/maven/" }
+    maven { url "https://splunk.jfrog.io/splunk/ext-releases-local" }
+    maven { url "https://dl.cloudsmith.io/public/consensys/quorum-mainnet-launcher/maven/" }
+}
+
+
+dependencies {
+    implementation "org.web3j:core:4.9.4"
+
+    testCompile "org.web3j:web3j-unit:4.9.4"
+    testCompile ('com.beust:klaxon:5.4') {
+        force=true
+    }
+    testCompile "org.junit.jupiter:junit-jupiter-engine:5.5.2",
+            "org.junit.jupiter:junit-jupiter-api:5.5.2",
+            "org.junit.jupiter:junit-jupiter-params:5.5.2"
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        showStandardStreams = true
+    }
+}
